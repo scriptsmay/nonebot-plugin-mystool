@@ -69,7 +69,9 @@ class Preference(BaseModel):
     sleep_time: float = 2
     '''任务操作冷却时间(如米游币任务)'''
     plan_time: str = "00:30"
-    '''每日自动签到和米游社任务的定时任务执行时间，格式为HH:MM'''
+    '''每日自动签到的定时任务执行时间，格式为HH:MM'''
+    plan_bbs_time: str = "09:30"
+    '''每日米游社任务的定时任务执行时间，格式为HH:MM'''
     resin_interval: int = 60
     '''每次检查原神便笺间隔，单位为分钟'''
     global_geetest: bool = False

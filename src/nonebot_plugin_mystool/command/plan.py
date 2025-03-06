@@ -722,12 +722,25 @@ async def daily_schedule():
     """
     自动米游币任务、游戏签到函数
     """
-    logger.info(f"{plugin_config.preference.log_head}开始执行每日自动任务")
+    logger.info(f"{plugin_config.preference.log_head}开始执行每日游戏签到")
     for user_id, user in get_unique_users():
         user_ids = [user_id] + list(get_all_bind(user_id))
         await perform_game_sign(user=user, user_ids=user_ids)
+    logger.info(f"{plugin_config.preference.log_head}每日游戏签到执行完成")
+
+@scheduler.scheduled_job("cron",
+                         hour=plugin_config.preference.plan_bbs_time.split(':')[0],
+                         minute=plugin_config.preference.plan_bbs_time.split(':')[1],
+                         id="daily_bbs_schedule")
+async def daily_bbs_schedule():
+    """
+    自动米游币任务
+    """
+    logger.info(f"{plugin_config.preference.log_head}开始执行米游社任务")
+    for user_id, user in get_unique_users():
+        user_ids = [user_id] + list(get_all_bind(user_id))
         await perform_bbs_sign(user=user, user_ids=user_ids)
-    logger.info(f"{plugin_config.preference.log_head}每日自动任务执行完成")
+    logger.info(f"{plugin_config.preference.log_head}米游社任务执行完成")
 
 
 @scheduler.scheduled_job("interval",
